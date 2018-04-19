@@ -6,10 +6,10 @@ def callme(message) {
     return responseContent
 }
 
-def buildme(artifactory) {
-    def server = artifactory.server 'local'
+def buildme() {
+    def server = Artifactory.server 'local'
     
-    def maven = artifactory.newMavenBuild()
+    def maven = Artifactory.newMavenBuild()
 
     maven.resolver server: server, releaseRepo: 'jcenter', snapshotRepo: 'jcenter'
 
@@ -18,4 +18,19 @@ def buildme(artifactory) {
     maven.deployer.deployArtifacts = true
 
     def buildInfo = maven.run pom: './my-app/pom.xml', goals: 'clean package'
+}
+
+def download(artifactory) {
+    def server = artifactory.server 'Main'
+
+    def downloadSpec = """{
+    "files": [
+        {
+        "pattern": "samples/com/mycompany/app/my-app/1.0-SNAPSHOT/my-app-1.0-20180418.163328-1.jar",
+        "target": "my-app-1.0-20180418.163328-1.jar",
+        "flat": "true"
+        }
+    ]
+    }"""
+    server.download(downloadSpec)
 }
