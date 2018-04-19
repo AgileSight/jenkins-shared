@@ -15,10 +15,10 @@ class Mulesoft implements Serializable {
         return responseContent
     }
 
-    def MavenBuild() {
-        def server = Artifactory.server 'local'
+    def MavenBuild(artifactory) {
+        def server = artifactory.server 'local'
     
-        def maven = Artifactory.newMavenBuild()
+        def maven = artifactory.newMavenBuild()
     
         maven.resolver server: server, releaseRepo: 'jcenter', snapshotRepo: 'jcenter'
     
