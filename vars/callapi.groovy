@@ -6,19 +6,7 @@ def callme(message) {
     return responseContent
 }
 
-def compile() {
-    def server = Artifactory.server 'local'
-    
-    def maven = Artifactory.newMavenBuild()
 
-    maven.resolver server: server, releaseRepo: 'jcenter', snapshotRepo: 'jcenter'
-
-    maven.deployer server: server, releaseRepo: 'samples', snapshotRepo: 'samples'
-
-    maven.deployer.deployArtifacts = true
-
-    def buildInfo = maven.run pom: './my-app/pom.xml', goals: 'clean package'
-}
 
 def download(artifactory) {
     def server = artifactory.server 'Main'
@@ -33,4 +21,18 @@ def download(artifactory) {
     ]
     }"""
     server.download(downloadSpec)
+}
+
+def compile(artifactory) {
+    def server = artifactory.server 'local'
+    
+    def maven = artifactory.newMavenBuild()
+
+    maven.resolver server: server, releaseRepo: 'jcenter', snapshotRepo: 'jcenter'
+
+    maven.deployer server: server, releaseRepo: 'samples', snapshotRepo: 'samples'
+
+    maven.deployer.deployArtifacts = true
+
+    def buildInfo = maven.run pom: './my-app/pom.xml', goals: 'clean package'
 }
