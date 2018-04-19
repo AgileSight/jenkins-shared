@@ -6,7 +6,7 @@ def callme(message) {
     return responseContent
 }
 
-def buildme() {
+def compile() {
     def server = Artifactory.server 'local'
     
     def maven = Artifactory.newMavenBuild()
