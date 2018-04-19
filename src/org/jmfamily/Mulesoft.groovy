@@ -16,7 +16,7 @@ class Mulesoft implements Serializable {
     }
 
     def MavenBuild(artifactory) {
-        def server = artifactory.server 'local'
+        /*def server = artifactory.server 'local'
     
         def maven = artifactory.newMavenBuild()
     
@@ -27,5 +27,7 @@ class Mulesoft implements Serializable {
         maven.deployer.deployArtifacts = true
        
         def buildInfo = maven.run pom: './my-app/pom.xml', goals: 'clean package'
+
+        */
     }
 }
