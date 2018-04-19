@@ -24,7 +24,7 @@ def download(artifactory) {
 }
 
 def compile(artifactory) {
-    def server = artifactory.server 'local'
+    def server = artifactory.server 'Main'
     
     def maven = artifactory.newMavenBuild()
 
