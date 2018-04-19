@@ -14,4 +14,18 @@ class Mulesoft implements Serializable {
 
         return responseContent
     }
+
+    def MavenBuild() {
+        def server = Artifactory.server 'local'
+    
+        def maven = Artifactory.newMavenBuild()
+    
+        maven.resolver server: server, releaseRepo: 'jcenter', snapshotRepo: 'jcenter'
+    
+        maven.deployer server: server, releaseRepo: 'samples', snapshotRepo: 'samples'
+    
+        maven.deployer.deployArtifacts = true
+       
+        def buildInfo = maven.run pom: './my-app/pom.xml', goals: 'clean package'
+    }
 }
